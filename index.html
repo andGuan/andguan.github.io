@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>H2O2 Official</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            background-size: 100% 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #800080, #660066, #4d004d, #330033, #1a001a, #000000, #1a001a, #330033, #4d004d, #660066, #800080);
+            background-size: 600% 600%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientText 15s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Removed glowText keyframes */
+    </style>
+</head>
+<body>
+    <div class="glow-container">
+        <h1>Hello H2O2</h1>
+    </div>
+</body>
+</html>
