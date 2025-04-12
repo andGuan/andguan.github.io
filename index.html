@@ -8,11 +8,19 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* 水平居中 .content-container */
+            align-items: center;   /* 垂直居中 .content-container */
             background: #000000;
-            background-size: 100% 100%;
+            /* background-size: 100% 100%; /* 对纯色背景无效，移除 */
             font-family: 'Arial', sans-serif;
+            color: #fff; /* 为按钮文字设置默认颜色 */
+        }
+
+        .content-container { /* 重命名了之前的 glow-container，或保持原名 */
+            display: flex;
+            flex-direction: column; /* 让 h1 和 button 垂直排列 */
+            align-items: center;   /* 在交叉轴（水平）上居中 */
+            text-align: center;    /* 确保文本居中 */
         }
 
         h1 {
@@ -23,6 +31,7 @@
             -webkit-background-clip: text;
             color: transparent;
             animation: gradientText 10s ease infinite;
+            margin-bottom: 20px; /* 在标题和按钮之间添加一些间距 */
         }
 
         @keyframes gradientText {
@@ -31,14 +40,107 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Removed glowText keyframes */
+        #copyButton {
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: white; /* 按钮文字颜色 */
+            border: 2px solid; /* 边框宽度和样式 */
+            border-radius: 5px;
+            background: transparent; /* 背景透明，让边框动画更明显，或者设置一个变化的背景色 */
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease; /* 轻微的过渡效果 */
+            animation: rainbowBorder 4s linear infinite; /* 应用彩虹边框动画 */
+        }
+
+        /* 如果想要背景色变化而不是边框 */
+        /*
+        #copyButton {
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: white;
+            border: none; // 无边框
+            border-radius: 5px;
+            cursor: pointer;
+            transition: filter 0.3s ease; // 过渡阴影
+            animation: rainbowBackground 4s linear infinite; // 应用彩虹背景动画
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3); // 可选：加一点辉光
+        }
+        */
+
+        #copyButton:hover {
+            /* background-color: rgba(255, 255, 255, 0.1); /* 鼠标悬停时轻微变亮 */
+             filter: brightness(1.2); /* 悬停时变亮 */
+        }
+
+        /* 彩虹边框动画 */
+        @keyframes rainbowBorder {
+            0%   { border-color: hsl(0, 100%, 50%); } /* Red */
+            17%  { border-color: hsl(60, 100%, 50%); } /* Yellow */
+            33%  { border-color: hsl(120, 100%, 50%); } /* Green */
+            50%  { border-color: hsl(180, 100%, 50%); } /* Cyan */
+            67%  { border-color: hsl(240, 100%, 50%); } /* Blue */
+            83%  { border-color: hsl(300, 100%, 50%); } /* Magenta */
+            100% { border-color: hsl(360, 100%, 50%); } /* Red */
+        }
+
+        /* 彩虹背景动画 (如果选择背景变化) */
+        @keyframes rainbowBackground {
+             0%   { background-color: hsl(0, 100%, 50%); }
+             17%  { background-color: hsl(60, 100%, 50%); }
+             33%  { background-color: hsl(120, 100%, 50%); }
+             50%  { background-color: hsl(180, 100%, 50%); }
+             67%  { background-color: hsl(240, 100%, 50%); }
+             83%  { background-color: hsl(300, 100%, 50%); }
+             100% { background-color: hsl(360, 100%, 50%); }
+        }
+
+        /* 之前的 AdSense 脚本 */
+        /* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6819146460122118"
+            crossorigin="anonymous"></script> */
+        /* 暂时注释掉 AdSense 脚本，如果需要请取消注释 */
+
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6819146460122118"
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6819146460122118"
      crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="glow-container">
+    <div class="content-container">
         <h1>Hello H2O2</h1>
+        <button id="copyButton">获取订阅链接</button>
     </div>
+
+    <script>
+        const copyBtn = document.getElementById('copyButton');
+        const urlToCopy = 'https://19890921.xyz/666666?proxyip=ProxyIP.US.CMLiussss.net';
+        const originalButtonText = copyBtn.innerText; // 保存原始按钮文字
+
+        copyBtn.addEventListener('click', () => {
+            // 尝试使用 Clipboard API 复制文本
+            navigator.clipboard.writeText(urlToCopy)
+                .then(() => {
+                    // 复制成功
+                    copyBtn.innerText = '已复制!'; // 更改按钮文字提示成功
+                    // 可选：短时间后恢复按钮文字
+                    setTimeout(() => {
+                        copyBtn.innerText = originalButtonText;
+                    }, 2000); // 2秒后恢复
+                })
+                .catch(err => {
+                    // 复制失败
+                    console.error('无法复制文本: ', err);
+                    copyBtn.innerText = '复制失败'; // 更改按钮文字提示失败
+                     // 可选：短时间后恢复按钮文字
+                    setTimeout(() => {
+                        copyBtn.innerText = originalButtonText;
+                    }, 3000); // 3秒后恢复
+
+                    // 可以考虑提供备选方案，例如弹窗提示用户手动复制
+                    // alert('无法自动复制，请手动复制链接:\n' + urlToCopy);
+                });
+        });
+
+        // 重要提示: navigator.clipboard API 通常需要在安全上下文 (HTTPS) 中运行，
+        // 或者在 localhost 开发环境中。在 http 页面上可能无法工作。
+    </script>
 </body>
 </html>
